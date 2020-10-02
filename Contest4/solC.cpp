@@ -22,10 +22,6 @@ struct Cell {
 	int* value;
 	Cell *prev;
 
-	~Cell(){
-		value = nullptr;
-		prev = nullptr;
-	}
 };
 
 class MinStack { //ваш код
@@ -85,3 +81,9 @@ class MinStack { //ваш код
 		return value; 
 	} 
 };
+
+
+int main(){
+	MinStack *mstack = new MinStack;
+	mstack->getMin();
+}
