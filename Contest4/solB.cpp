@@ -48,16 +48,19 @@ private:
 public:
     Fraction() = delete;
     Fraction(const Fraction& rhs) : numerator(rhs.numerator), denominator(rhs.denominator) {}
-    Fraction& operator=(const Fraction& rhs);
-    Fraction(int64_t numerator, uint64_t denominator): numerator(numerator), denominator(denominator) {};
+    Fraction& operator=(const Fraction& rhs){return rhs;}
+    Fraction(int64_t numerator, uint64_t denominator){
+		int gcd = GCD(abs(numerator), abs(denominator));
+		this->numerator = numerator/gcd; 
+		this->denominator = denominator/gcd; 
+	}
     
 	//  Add operator overloads below
-	
+
 	Fraction operator+(Fraction obj2){
 		int auxNumerator = this->denominator * obj2.numerator + this->numerator * obj2.denominator;
 		int auxDenominator = this->denominator * obj2.denominator;
-		int gcd = GCD(abs(auxNumerator), abs(auxDenominator)); 
-		return Fraction(auxNumerator/gcd, auxDenominator/gcd);
+		return Fraction(auxNumerator, auxDenominator);
 	}
 
 	Fraction operator*(Fraction obj2){
