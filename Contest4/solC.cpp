@@ -19,32 +19,23 @@
 #include <iostream>
 
 struct Cell {
-	int* value;
+	int value;
 	Cell *prev;
 
 };
 
-class MinStack { //ваш код
+class MinStack {
 
 	private:
 	Cell* last;
 
-	public: 
-	MinStack() { //ваш код
-		Cell nothing;
-		nothing.prev = nullptr;
-		nothing.value = nullptr;
-		this->last = &nothing;
-   	}
+	public:
+	MinStack(): last(nullptr) {};
 
-	~MinStack() { //ваш код
-		while(last != nullptr){
-			last = last->prev;
-		}
-		last = nullptr; //the last of us was killed
-	}
+	~MinStack() {
+		while(last != nullptr){}
 
-	void print() { //ваш код
+	void print() {
 		Cell *printThisCell = last;
 		do{
 			std::cout << printThisCell->value << std::endl;
@@ -52,15 +43,11 @@ class MinStack { //ваш код
 		}while(printThisCell != nullptr);	
 	}
 
-	void push(int x) { //ваш код
-		if (&last->value == nullptr){
-			last->value = &x;
-		}else{
-			Cell newLast;
-			newLast.prev = last;
-			newLast.value = &x;
-			last = &newLast;
-		}	   
+	void push(int x) { 
+		Cell newLast;
+		newLast.prev = last;
+		newLast.value = x;
+		last = &newLast;	   
 	}
 
 	void pop() { //ваш код 
@@ -68,22 +55,16 @@ class MinStack { //ваш код
 	}
 
 	int top() { //ваш код 
-		return *last->value; 
+		return last->value; 
 	} 
 
 	int getMin() { //ваш код
 		Cell *tmp = last;
-		int value = *tmp->value;
+		int value = tmp->value;
 		do{
-			if (*tmp->value < value){value = *tmp->value;}
+			if (tmp->value < value){value = tmp->value;}
 			tmp = tmp->prev;
 		}while(tmp != nullptr);	
 		return value; 
 	} 
 };
-
-
-int main(){
-	MinStack *mstack = new MinStack;
-	mstack->getMin();
-}
