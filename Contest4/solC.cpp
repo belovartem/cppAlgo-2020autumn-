@@ -33,7 +33,13 @@ class MinStack {
 	MinStack(): last(nullptr) {};
 
 	~MinStack() {
-		while(last != nullptr){}
+		while(last != nullptr){
+			Cell *aux = last;
+			delete last;
+			last = aux->prev;
+			delete aux;
+		}
+	}
 
 	void print() {
 		Cell *printThisCell = last;
@@ -44,10 +50,10 @@ class MinStack {
 	}
 
 	void push(int x) { 
-		Cell newLast;
-		newLast.prev = last;
-		newLast.value = x;
-		last = &newLast;	   
+		Cell* newLast = new Cell;
+		newLast->prev = last;
+		newLast->value = x;
+		last = newLast;	   
 	}
 
 	void pop() { //ваш код 
