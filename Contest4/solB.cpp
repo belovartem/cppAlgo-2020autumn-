@@ -16,6 +16,24 @@
  * =====================================================================================
  */
 #include <stdlib.h>
+#include <cmath>
+
+int GCD(int n1, int n2)
+{
+  int div;
+  if (n1 == n2){return n1;}
+  int d = n1 - n2;
+  if (d < 0)       
+  {
+    d = -d;     
+    div = GCD(n1, d);
+  }
+  else      
+  {
+    div = GCD(n2, d);
+  }
+  return div;
+}
 
 class Fraction {
 private:
@@ -36,7 +54,10 @@ public:
 	//  Add operator overloads below
 	
 	Fraction operator+(Fraction obj2){
-		return Fraction(this->denominator * obj2.numerator + this->numerator * obj2.denominator, this->denominator * obj2.denominator);
+		int auxNumerator = this->denominator * obj2.numerator + this->numerator * obj2.denominator;
+		int auxDenominator = this->denominator * obj2.denominator;
+		int gcd = GCD(abs(auxNumerator), abs(auxDenominator)); 
+		return Fraction(auxNumerator/gcd, auxDenominator/gcd);
 	}
 
 	Fraction operator*(Fraction obj2){
