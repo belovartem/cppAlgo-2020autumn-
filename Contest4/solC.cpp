@@ -19,11 +19,11 @@
 #include <iostream>
 
 struct Cell {
-	int value;
+	int* value;
 	Cell *prev;
 
 	~Cell(){
-		value = NULL;
+		value = nullptr;
 		prev = nullptr;
 	}
 };
@@ -37,7 +37,7 @@ class MinStack { //ваш код
 	MinStack() { //ваш код
 		Cell nothing;
 		nothing.prev = nullptr;
-		nothing.value = NULL;
+		nothing.value = nullptr;
 		this->last = &nothing;
    	}
 
@@ -57,13 +57,13 @@ class MinStack { //ваш код
 	}
 
 	void push(int x) { //ваш код
-		if (last->value == NULL){
-			last->value = x;
+		if (&last->value == nullptr){
+			last->value = &x;
 		}else{
-			Cell *newLast;
-			newLast->prev = last;
-			newLast->value = x;
-			last = newLast;
+			Cell newLast;
+			newLast.prev = last;
+			newLast.value = &x;
+			last = &newLast;
 		}	   
 	}
 
@@ -72,27 +72,16 @@ class MinStack { //ваш код
 	}
 
 	int top() { //ваш код 
-		return last->value; 
+		return *last->value; 
 	} 
 
 	int getMin() { //ваш код
 		Cell *tmp = last;
-		int value = tmp->value;
+		int value = *tmp->value;
 		do{
-			if (tmp->value < value){value = tmp->value;}
+			if (*tmp->value < value){value = *tmp->value;}
 			tmp = tmp->prev;
 		}while(tmp != nullptr);	
 		return value; 
 	} 
 };
-
-int main(){
-	MinStack *mstack = new MinStack; 
-	mstack->push(3); 
-	mstack->push(2); 
-	mstack->top(); 
-	mstack->getMin();
-	return 0;
-}
-
-
