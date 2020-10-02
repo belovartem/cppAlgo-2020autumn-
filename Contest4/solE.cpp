@@ -39,7 +39,7 @@ int main(){
 		}
 	}while(a != 0);
 
-	if (stck.size() == 0){std::cout << -1 << std::endl;}
+	if (stck.size() == 0){std::cout << 0 << ' ' << -1 << std::endl;}
 	else{
 		std::cout << stck.size() << ' ' << stck.top() << std::endl;
 		return 0;
