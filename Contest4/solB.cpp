@@ -18,21 +18,46 @@
 #include <stdlib.h>
 #include <cmath>
 
-int GCD(int n1, int n2)
-{
-  int div;
-  if (n1 == n2){return n1;}
-  int d = n1 - n2;
-  if (d < 0)       
-  {
-    d = -d;     
-    div = GCD(n1, d);
-  }
-  else      
-  {
-    div = GCD(n2, d);
-  }
-  return div;
+
+uint64_t GCD(uint64_t a, uint64_t b) {
+    uint64_t nod = 1L;
+    uint64_t tmp;
+    if (a == 0L)
+        return b;
+    if (b == 0L)
+        return a;
+    if (a == b)
+        return a;
+    if (a == 1L || b == 1L)
+        return 1L;
+    while (a != 0 && b != 0) {
+        if (a % 2L == 0L && b % 2L == 0L) {
+            nod *= 2L;
+            a /= 2L;
+            b /= 2L;
+            continue;
+        }
+        if (a % 2L == 0L && b % 2L != 0L) {
+            a /= 2L;
+            continue;
+        }
+        if (a % 2L != 0L && b % 2L == 0L) {
+            b /= 2L;
+            continue;
+        }
+        if (a > b) {
+            tmp = a;
+            a = b;
+            b = tmp;
+        }
+        tmp = a;
+        a = (b - a) / 2L;
+        b = tmp;
+    }
+    if (a == 0)
+        return nod * b;
+    else
+        return nod * a;
 }
 
 class Fraction {
@@ -48,9 +73,10 @@ private:
 public:
     Fraction() = delete;
     Fraction(const Fraction& rhs) : numerator(rhs.numerator), denominator(rhs.denominator) {}
-    Fraction& operator=(const Fraction& rhs){return rhs;}
+    Fraction& operator=(const Fraction& rhs){this->numerator = rhs.numerator; this->denominator = rhs.denominator;}
+
     Fraction(int64_t numerator, uint64_t denominator){
-		int gcd = GCD(abs(numerator), abs(denominator));
+		uint64_t gcd = GCD(abs(numerator), abs(denominator));
 		this->numerator = numerator/gcd; 
 		this->denominator = denominator/gcd; 
 	}
@@ -58,8 +84,8 @@ public:
 	//  Add operator overloads below
 
 	Fraction operator+(Fraction obj2){
-		int auxNumerator = this->denominator * obj2.numerator + this->numerator * obj2.denominator;
-		int auxDenominator = this->denominator * obj2.denominator;
+		int64_t auxNumerator = this->denominator * obj2.numerator + this->numerator * obj2.denominator;
+		uint64_t auxDenominator = this->denominator * obj2.denominator;
 		return Fraction(auxNumerator, auxDenominator);
 	}
 
