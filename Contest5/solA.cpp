@@ -29,11 +29,9 @@ int main(){
 
 	if (std::cin >> a){
 		stack_of_integer.push(a);
-		std::cout << a;
 		}else{
 			std::cin.clear();
-			if (std::cin >> c){
-				std::cout << "in";	
+			std::cin >> c;	
 			switch (c)
 			{
 				case '*':
@@ -66,7 +64,7 @@ int main(){
 					stack_of_integer.push(a/b);
 					break;
 			}
-			}
+			
 	}
 
 
