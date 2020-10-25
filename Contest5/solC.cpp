@@ -33,8 +33,9 @@ int main(){
 	std::cin >> A >> N >> M;
 	std::vector<Point *> aut;
 	for (int i=0; i<N; i++){
-		Point point;
-		aut[i] = & point;
+		Point * point = new Point;
+		aut[i] = point;
+		std::cout << "hello" << std::endl;
 	}
 
 	for (int i=0; i<M; i++){
