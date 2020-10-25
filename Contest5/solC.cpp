@@ -24,8 +24,8 @@
 
 
 struct Point {
-	bool is_termination = false;
-	std::map<char, Point *> move_map;
+	bool is_termination;
+	std::map<char, Point * > move_map;
 };
 
 int main(){
@@ -34,8 +34,10 @@ int main(){
 	std::vector<Point *> aut;
 	for (int i=0; i<N; i++){
 		Point * point = new Point;
-		aut[i] = point;
-		std::cout << "hello" << std::endl;
+		point->is_termination = false;
+		std::map<char, Point * > move_map;
+		point->move_map = move_map;
+		aut.push_back(point);
 	}
 
 	for (int i=0; i<M; i++){
@@ -54,15 +56,16 @@ int main(){
 	}
 	
 	int K;
+	std::cin >> K;
 	std::string str;
+	str.reserve(8192);
 	for (int i=0; i<K; i++){
-		Point *point = aut[0];
-		std::getline(std::cin, str);
-		for (int j=0; j<str.length(); j++){
-			char c = str.front();
-			str.erase(0,1);
-			point = point->move_map[c];
+		Point *p = aut[0];
+		std::cin >> str;
+		for (int j=0; j<str.size(); j++){
+			char c = str[j];
+			p = p->move_map[c];
 		}
-		std::cout << point->is_termination << std::endl;
+		std::cout << p->is_termination << std::endl;
 	}
 }
