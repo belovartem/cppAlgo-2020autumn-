@@ -66,7 +66,7 @@ class Automaton {
 
 	void set_motion(int a,int b, char c){
 		if (point[a]->move_map[c][0]->is_fantom == true){point[a]->move_map[c][0] = point[b];}
-		else{point[a]->move_map[c].push_back[point[b]];}
+		else{point[a]->move_map[c].push_back(point[b]);}
 	}
 
 	void set_motion_map(){
